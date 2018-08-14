@@ -37,7 +37,7 @@
               <li><a href="#">item1</a></li>
               <li><a href="#">item2</a></li>
               <li><a href="#">item3</a></li>
-              <li><a href="#">item4</a></li>
+              <li><a href="#photos">Photos</a></li>
               <!-- Now for some Font Awesome icons -->
               <li>
                 <a href="#" class="btn-floating btn-small blue lighten-1 tooltipped" data-tooltip="Facebook">
@@ -140,7 +140,7 @@
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis fugiat doloremque deleniti mollitia debitis minus voluptatibus dolorum quia repellat laudantium tempore repudiandae incidunt necessitatibus molestiae, eos accusamus qui, nisi alias.</p>
         </section>
         <!-- Cards & Images-->
-        <section class="container">          
+        <section class="container scrollspy" id="photos">          
           <div class="row">
             <div class="col s12 pull-s2">
                 <h2 class="blue-text darken-2">
@@ -161,9 +161,6 @@
             </div>
             <div class="col s6 m4 l3 valign-wrapper">
               <img src="img/Morrocco5.jpg" alt="" class="responsive-img materialboxed">
-            </div>
-            <div class="col s6 m4 l3 valign-wrapper">
-              <img src="img/Morrocco6.jpg" alt="" class="responsive-img materialboxed">
             </div>
           </div>
         </section>
@@ -267,6 +264,7 @@
           disableWeekends: true
           });
         $('.fixed-action-btn').floatingActionButton();
+        $('.scrollspy').scrollSpy();
       });
     </script>
   </body>
