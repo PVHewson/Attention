@@ -1,10 +1,16 @@
+<?php
+if (isset($_FILES['photo'])) {
+ // $imageName = $_POST['photo'];
+  $imageDirectory = 'uploads/' . basename($_FILES['photo']['name']);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
       <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <title>Title of the document</title>
+      <title>Attention in class</title>
     <!-- Material Icon CDN -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Font Awesome Icon CDN -->
@@ -31,29 +37,15 @@
       <nav class="blue">
         <div class="nav-wrapper">
           <div class="container">
-            <a href="#" class="brand-logo">LOGO</a>
+            <a href="#" class="brand-logo">
+              Attension
+              <?php echo ($imageDirectory); ?>
+            </a>
             <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
-              <li><a href="#footer">item1</a></li>
-              <li><a href="#">item2</a></li>
-              <li><a href="#">item3</a></li>
-              <li><a href="#photos">Photos</a></li>
-              <!-- Now for some Font Awesome icons -->
-              <li>
-                <a href="#" class="btn-floating btn-small blue lighten-1 tooltipped" data-tooltip="Facebook">
-                  <i class="fab fa-facebook"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="btn-floating btn-small blue lighten-1 tooltipped" data-tooltip="Twitter">
-                  <i class="fab fa-twitter"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="btn-floating btn-small blue lighten-1 tooltipped" data-tooltip="Instagram">
-                  <i class="fab fa-instagram"></i>
-                </a>
-              </li>
+              <li><a href="#">Teachers</a></li>
+              <li><a href="#">Students</a></li>
+              <li><a href="#">Login</a></li>
             </ul>
             <ul class="sidenav" id="mobile-menu">
               <li>
@@ -66,10 +58,9 @@
                   <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
                 </div>
               </li>
-              <li><a href="#">item1</a></li>
-              <li><a href="#">item2</a></li>
-              <li><a href="#">item3</a></li>
-              <li><a href="#">item4</a></li>
+              <li><a href="#">Teachers</a></li>
+              <li><a href="#">Students</a></li>
+              <li><a href="#">Login</a></li>
             </ul>
           </div>
         </div>
@@ -173,59 +164,14 @@
                 Has some very nice built in ui features
               </p>
             </div>
-            <div class="col s12 l6">
-                <form action="">
-                  <div class="input-field">
-                      <i class="material-icons prefix indigo-text">perm_identity</i>    
-                      <input type="text" id="fullname"/>
-                    <label for="fullname">My name is</label>
-                  </div>
-                  <div class="input-field">
-                      <i class="material-icons prefix indigo-text">home</i>    
-                      <textarea class="materialize-textarea" cols="30" rows="5" id="address"></textarea>
-                    <label for="address">My address is</label>
-                  </div>
-                  <div class="input-field">
-                    <i class="material-icons prefix indigo-text">date_range</i>    
-                    <input type="text" id="visit" class="datepicker"/>
-                    <label for="visit">Please visit me on</label>
-                  </div>
-                  <div class="switch">
-                    <i class="material-icons prefix indigo-text">email</i>    
-                    <label>
-                        No
-                        <input id="spam" type="checkbox">
-                        <span class="lever"></span>
-                        Yes
-                      </label>
-                      <label for="spam">Spam me</label>
-                    </div>                  
-                  <div class="input-field">
-                      <p>
-                          <label>
-                              <input type="checkbox" value="yes"id="agree"/>
-                              <span>I agree to the conditions</span>
-                          </label>    
-                      </p>
-                    </div>  
-                    <div class="input-field">
-                      <button class="btn right">Submit</button>
-                    </div>
-                </form>
-              </div>
+            
             </div>
         </section>
       <!-- A floating action button - these are cool! -->
       <div class="fixed-action-btn">
-          <a class="btn-floating btn-large indigo darken-2">
-            <i class="large material-icons">widgets</i>
+          <a class="waves-effect waves-light btn modal-trigger btn-floating btn-large indigo darken-2 tooltipped" data-position="top" data-tooltip="Contribute an article" href="#modalContribute">
+            <i class="large material-icons">edit</i>
           </a>
-          <ul>
-            <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-            <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-            <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-            <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-          </ul>
         </div>
     </main>
     <footer id="footer" class="page-footer blue">
@@ -248,7 +194,55 @@
         </div>
       </div>
     </footer>
-    <!-- jQuery CDN -->
+    <div class="modal" id="modalContribute">
+      <div class="modal-content">
+        <form action="index.php" method="post" id="contribution" enctype="multipart/form-data">
+          <div class="input-field">
+              <i class="material-icons prefix indigo-text">perm_identity</i>    
+              <input type="text" id="fullname"/>
+            <label for="fullname">My name is</label>
+          </div>
+          <div class="input-field">
+            <i class="material-icons prefix indigo-text">my_location</i>    
+            <input type="text" id="source"/>
+          <label for="source">This article is from</label>
+        </div>
+        <div class="input-field">
+          <i class="material-icons prefix indigo-text">title</i>    
+          <input type="text" id="summary"/>
+        <label for="summary">Summary</label>
+      </div>
+        <div class="input-field">
+              <i class="material-icons prefix indigo-text">home</i>    
+              <textarea class="materialize-textarea" cols="30" rows="5" id="body"></textarea>
+            <label for="body">Article content ...</label>
+        </div>
+        <div class="file-field input-field">
+          <div class="btn">
+            <span>Photo</span>
+            <input type="file" name="photo">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+        </div>
+
+          <div class="input-field">
+              <p>
+                  <label>
+                      <input type="checkbox" value="yes"id="agree"/>
+                      <span>I agree to the conditions</span>
+                  </label>    
+              </p>
+            </div>  
+            <div class="modal-footer">
+              <input type="submit" value="Go"/>
+              <a href="#!" class="modal-close waves-effect waves-green btn-flat">Submit</a>
+            </div>
+        </form>
+      </div>
+    </div>
+<!-- jQuery CDN -->
       <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <!-- Materialize JS CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
@@ -260,11 +254,22 @@
         $(".parallax").parallax();
         $(".tabs").tabs();
         $('.materialboxed').materialbox();
+        $('.modal').modal();
         $('.datepicker').datepicker({
           disableWeekends: true
           });
         $('.fixed-action-btn').floatingActionButton();
         $('.scrollspy').scrollSpy();
+
+        //Manage an AJAX form submission  
+        $('#contribution').submit(function(e){
+          e.preventDefault();
+          $.post('contribute.php', $(this).serialize(),
+          function(data){
+            alert(data);
+            $('.modal').modal('close');
+          })
+        })
       });
     </script>
   </body>
