@@ -1,4 +1,5 @@
 <?php
+$imageDirectory = "";
 if (isset($_FILES['photo'])) {
  // $imageName = $_POST['photo'];
   $imageDirectory = 'uploads/' . basename($_FILES['photo']['name']);
@@ -199,28 +200,28 @@ if (isset($_FILES['photo'])) {
         <form action="index.php" method="post" id="contribution" enctype="multipart/form-data">
           <div class="input-field">
               <i class="material-icons prefix indigo-text">perm_identity</i>    
-              <input type="text" id="fullname"/>
+              <input type="text" id="fullname" name="fullname"/>
             <label for="fullname">My name is</label>
           </div>
           <div class="input-field">
             <i class="material-icons prefix indigo-text">my_location</i>    
-            <input type="text" id="source"/>
+            <input type="text" id="source" name="source"/>
           <label for="source">This article is from</label>
         </div>
         <div class="input-field">
           <i class="material-icons prefix indigo-text">title</i>    
-          <input type="text" id="summary"/>
+          <input type="text" id="summary" name="summary"/>
         <label for="summary">Summary</label>
       </div>
         <div class="input-field">
               <i class="material-icons prefix indigo-text">home</i>    
-              <textarea class="materialize-textarea" cols="30" rows="5" id="body"></textarea>
+              <textarea class="materialize-textarea" cols="30" rows="5" name="body" id="body"></textarea>
             <label for="body">Article content ...</label>
         </div>
         <div class="file-field input-field">
           <div class="btn">
             <span>Photo</span>
-            <input type="file" name="photo">
+            <input type="file" id="photo" name="photo">
           </div>
           <div class="file-path-wrapper">
             <input class="file-path validate" type="text">
@@ -230,7 +231,7 @@ if (isset($_FILES['photo'])) {
           <div class="input-field">
               <p>
                   <label>
-                      <input type="checkbox" value="yes"id="agree"/>
+                      <input type="checkbox" value="yes" id="agree" name="agree"/>
                       <span>I agree to the conditions</span>
                   </label>    
               </p>
@@ -263,12 +264,30 @@ if (isset($_FILES['photo'])) {
 
         //Manage an AJAX form submission  
         $('#contribution').submit(function(e){
-          e.preventDefault();
-          $.post('contribute.php', $(this).serialize(),
-          function(data){
-            alert(data);
-            $('.modal').modal('close');
-          })
+		e.preventDefault();
+		var form = document.forms.namedItem("contribution");
+	  
+		//var data = new FormData($('#contribution'));
+		var data = new FormData();
+		data.append('photo', $('#photo')[0].files[0]);
+		//data.append('photo2', document.getElementById('photo').files[0]);
+		data.append('fullname', $("#fullname").val());
+		data.append('source', $("#source").val());
+		data.append('summary', $("#summary").val());
+	  
+		$.ajax({
+		    url: 'contribute.php',
+		    data: data,
+		    cache: false,
+		    contentType: false,
+		    processData: false,
+		    method: 'POST',
+		    type: 'POST', // For jQuery < 1.9
+		    success: function(data){
+			alert(data);
+			$('.modal').modal('close');
+		    }			
+		});		
         })
       });
     </script>

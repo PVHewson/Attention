@@ -3,5 +3,7 @@
 // Validate submission
 // Add it to the database
 // Return result
-echo ('Your contribution has been accepted.  Success !!!');
+$files = $_FILES;
+$post = $_POST;
+echo ('Thanks, ' . $post["fullname"] . '. Your contribution has been accepted.  Success !!!');
 ?>
