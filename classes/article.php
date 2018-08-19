@@ -15,8 +15,10 @@ class Article {
 	
 	function __construct($data, User $user) {
 		if (isset($data)){
+			$this->_idarticle = $data['id_article'];
 			$this->_summary = $data['summary'];
 			$this->_body = $data['body'];
+			$this->_photo = $data['photo'];
 			if (isset($data['idarticle'])){
 				$this->_author = $data['author'];
 				$this->_created = $data['created'];				
@@ -35,12 +37,14 @@ class Article {
 			$attributes = array (
 			  'summary',
 			  'body',
+			  'photo',  
 			  'author',
 			  'created'
 			);
 			$values = array (
 			  "'" . $this->_summary . "'",
 			  "'" . $this->_body . "'",
+			  "'" . $this->_photo . "'",
 			  "'" . $this->_author . "'",
 			  "'" . $this->_created . "'"
 			);
@@ -53,11 +57,17 @@ class Article {
 		}
 	}
 	
+	function id() {
+		return $this->_idarticle;
+	}
 	function summary() {
 		return $this->_summary;
 	}
 	function body() {
 		return $this->_body;
+	}
+	function photo() {
+		return $this->_photo;
 	}
 	// Approve
 	

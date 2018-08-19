@@ -3,9 +3,9 @@
 require 'common/sessionInfo.php';
 require 'classes/Article.php';
 
-// Receive a new submission
-// Validate submission
-// Add it to the database
+// Receive a new article submission
+// Validate the article and its image (if given)
+// Add the article to the database and stroe the image with the new article's id
 // Return result
 
 if (!$user->loggedIn()){
@@ -16,54 +16,54 @@ if (!$user->canAuthor()){
 	echo "Unauthorised";
 	return;
 }
+
+
 $files = $_FILES;
-$post = $_POST;
-$article = new Article($post, $user);
-
-if (is_object($files)) {
-	$files[0]->saveAs($model->signature_filepath);
-}
-
-
-$target_dir = "uploads/";
-$target_file = $target_dir . basename($_FILES["photo"]["name"]);
 $uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-// Check if image file is a actual image or fake image
-    $check = getimagesize($_FILES["photo"]["tmp_name"]);
-    if($check !== false) {
-        //echo "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
-    } else {
-        echo "File is not an image.";
-        $uploadOk = 0;
-    }
-// Check if file already exists
-if (file_exists($target_file)) {
-    echo "Sorry, file already exists.";
-    $uploadOk = 0;
+$imageFileType = '';
+$post = $_POST;
+
+if (count($files) > 0) {
+//	$files[0]->saveAs($model->signature_filepath);
+	$target_dir = "uploads/";
+	$imageFileType = strtolower(pathinfo(basename($files['photo']['name']),PATHINFO_EXTENSION));
+	// Check if image file is a actual image or fake image
+	    $check = getimagesize($_FILES["photo"]["tmp_name"]);
+	    if($check == false) {
+		echo "File is not an image.";
+		$uploadOk = 0;
+	    }
+
+	// Check file size
+	if ($_FILES["photo"]["size"] > 500000) {
+	    echo "Sorry, your file is too large.";
+	    $uploadOk = 0;
+	}
+	// Allow certain file formats
+	if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+	&& $imageFileType != "gif" ) {
+	    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+	    $uploadOk = 0;
+	}
 }
-// Check file size
-if ($_FILES["photo"]["size"] > 500000) {
-    echo "Sorry, your file is too large.";
-    $uploadOk = 0;
-}
-// Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" ) {
-    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-    $uploadOk = 0;
-}
+
+
 // Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
+if (count($files) > 0 && $uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
 } else {
-    if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
-	    $article->save();
-	    echo ('Thanks, ' . $user->username() . '. Your contribution has been accepted.  Success !!!');
+    // if everything is ok with the file, save the article and upload file
+    $post['photo'] = $imageFileType;	
+
+    $article = new Article($post, $user);
+    if($article->save()) {
+        if (count($files) > 0) {
+		$target_file = $target_dir . $article->id() . '.' . $imageFileType;
+		move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
+        }
+	echo ('Thanks, ' . $user->username() . '. Your contribution has been accepted.<br/><br/>It will appear as soon as it has been approved by a moderator.');    	    	    
     } else {
-        echo "Sorry, there was an error uploading your file.";
+        echo "Sorry, there was an error uploading your article.";
     }
 }
 

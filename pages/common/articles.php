@@ -6,6 +6,10 @@
 	foreach($articles as $article){
 		$summary = $article->summary();
 		$body = $article->body();
+		$photo = $article->photo() != '' ?
+			"<img src='uploads/" . $article->id() . '.' . $article->photo() ."' class='responsive-img materialboxed'/>"
+			: '';
+
 		if ($column1){
 			echo '<div class="row">';
 		}
@@ -15,6 +19,7 @@
 				<div class='card-content'>
 					<span class=card-title'>$summary</span>
 					<p>$body</p>
+					$photo		
 				</div>
 				<div class='card-action'>
 					<a href='#'>Publish</a>
