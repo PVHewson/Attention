@@ -11,8 +11,8 @@
 		}
 		
 		echo "<div class='col s12 m6'>
-			<div class='card small blue-grey darken-1'>
-				<div class='card-content white blue-grey-text'>
+			<div class='card small blue-grey lighten-1'>
+				<div class='card-content'>
 					<span class=card-title'>$summary</span>
 					<p>$body</p>
 				</div>

@@ -39,14 +39,16 @@ class User {
 			  'family_name',
 			  'email',
 			  'username',
-			  'password'
+			  'password',
+			  'can_author'  			    
 			);
 			$values = array (
 			  "'" . $this->_givenName . "'",
 			  "'" . $this->_familyName . "'",
 			  "'" . $this->_email . "'",
 			  "'" . $this->_username . "'",
-			  "'" . md5($this->_password) . "'"
+			  "'" . md5($this->_password) . "'",
+			  $this->canAuthor()
 			);
 
 			$found = $db->readAll($this->_dbTable, false, 'username', "'$this->_username'");
@@ -86,8 +88,8 @@ class User {
 
 			$this->_username=$foundUser['username'];
 			$this->_email=$foundUser['email'];
-			$this->_givenName=$foundUser['givenName'];		
-			$this->_familyName=$foundUser['familyName'];		
+			$this->_givenName=$foundUser['given_name'];		
+			$this->_familyName=$foundUser['family_name'];		
 			//$this->_photo=$attributes['photo'];
 			$this->_photo='';
 			$this->_canEdit = $foundUser['can_edit'];
