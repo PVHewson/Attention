@@ -3,12 +3,12 @@
 		<div class="nav-wrapper">
 			<div class="container">
 				<a href="#" class="brand-logo">
-					Attension
+					CM Template
 				</a>
 				<a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 				<ul class="right hide-on-med-and-down">
-					<li><a href="#">Teachers</a></li>
-					<li><a href="#">Students</a></li>
+					<li><a href="#">Option 1</a></li>
+					<li><a href="#">Option 2</a></li>
 <?php if ($user->loggedIn()){
 	echo '<li><a href="?logout" id="aLogout">Logout</a></li>
 		<li><a href="#"><span class="new badge" data-badge-caption="'. $user->username() .'"></span></a></li>';
@@ -21,7 +21,11 @@
 						<div class="user-view">
 							<div class="background">
 							</div>
-							<a href="#!user"><img class="circle" src="http://lorempixel.com/output/people-q-c-640-480-9.jpg" alt="User Image Sidenav"></a>
+							<?php 
+							$photo = $user->photo();
+							if ($photo != '') {
+								echo "<a href='#!user'><img class='circle' src='$photo' alt='User Image Sidenav'></a>";	
+							} ?>
 							<a href="#!name"><span class="blue-text name">
 								<?php echo $user->username() ?></span>
 							</a>
@@ -30,8 +34,8 @@
 							</a>
 						</div>
 					</li>
-					<li><a href="#">Teachers</a></li>
-					<li><a href="#">Students</a></li>
+					<li><a href="#">Option 1</a></li>
+					<li><a href="#">Option 2</a></li>
 <?php if ($user->loggedIn()){
 		echo '<li><a href="?logout" id="aSNLogout">Logout</a></li>';
 	} else {

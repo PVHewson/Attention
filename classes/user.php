@@ -4,14 +4,15 @@ require_once 'classes/db.php';
 class User {
 	private $_iduser;
 	private $_username;
+	private $_familyName;
+	private $_givenName;
 	private $_email;
 	private $_password;
+	private $_photo;
 	private $_canEdit;
 	private $_canAuthor;
 	private $_canPublish;
 	private $_isAdmin;
-	private $_familyName;
-	private $_givenName;
 	private $_loggedIn;
 	private $_dbTable = 'tbl_user';
 	
@@ -29,6 +30,8 @@ class User {
 			$this->_email=$attributes['regEmail'];
 			$this->_givenName=$attributes['regGivenName'];		
 			$this->_familyName=$attributes['regFamilyName'];		
+			//$this->_photo=$attributes['photo'];
+			$this->_photo='';
 			$this->_canAuthor = true;
 
 			$attributes = array (
@@ -83,6 +86,14 @@ class User {
 
 			$this->_username=$foundUser['username'];
 			$this->_email=$foundUser['email'];
+			$this->_givenName=$foundUser['givenName'];		
+			$this->_familyName=$foundUser['familyName'];		
+			//$this->_photo=$attributes['photo'];
+			$this->_photo='';
+			$this->_canEdit = $foundUser['can_edit'];
+			$this->_canAuthor = $foundUser['can_author'];
+			$this->_canApprove = $foundUser['can_approve'];
+			$this->_isAdmin = $foundUser['is_admin'];
 			$this->_loggedIn = true;			
 		}
 		catch (Exception $e)
@@ -93,8 +104,9 @@ class User {
 	}
 	
 	function logout() {
-		unset($this->_username);
-		unset($this->_password);
+		$this->_username = '';
+		$this->_email = '';
+		$this->_photo = '';
 		$this->_loggedIn = false;
 	}
 
@@ -109,6 +121,9 @@ class User {
 	}
 	function email() {
 		return $this->_email;
+	}
+	function photo() {
+		return $this->_photo;
 	}
 	function canAuthor() {
 		return $this->_canAuthor;

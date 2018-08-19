@@ -1,0 +1,20 @@
+/* 
+    Document   : style
+    Created on : 19/08/2018, 2:40:32 PM
+    Author     : Paul
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+	display: block;
+}
+
+#modalLogin {
+	max-width: 420px;
+}

@@ -1,7 +1,7 @@
   <!--  
   Modal to allow users to login - to contribute, edit, approve
   -->
-    <div class="modal" id="modalLogin">
+    <div class="modal medium" id="modalLogin">
       <div class="modal-content">
         <form action="index.php" method="post" id="formLogin">
         <div class="input-field">
