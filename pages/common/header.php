@@ -9,9 +9,9 @@
 				<ul class="right hide-on-med-and-down">
 					<li><a href="#">Teachers</a></li>
 					<li><a href="#">Students</a></li>
-<?php if (isset($_SESSION['user'])){
+<?php if ($user->loggedIn()){
 	echo '<li><a href="?logout" id="aLogout">Logout</a></li>
-		<li><a href="#"><span class="new badge" data-badge-caption="'. $_SESSION['user']['name'].'"></span></a></li>';
+		<li><a href="#"><span class="new badge" data-badge-caption="'. $user->username() .'"></span></a></li>';
 } else {
 	echo '<li><a href="#modalLogin" class="modal-trigger">Login</a></li><li><a href="#modalRegister" class="modal-trigger">Register</a></li>';
 }	?>
@@ -23,16 +23,16 @@
 							</div>
 							<a href="#!user"><img class="circle" src="http://lorempixel.com/output/people-q-c-640-480-9.jpg" alt="User Image Sidenav"></a>
 							<a href="#!name"><span class="blue-text name">
-								<?php echo isset($_SESSION['user'])? $_SESSION['user']['name'] : '' ?></span>
+								<?php echo $user->username() ?></span>
 							</a>
 							<a href="#!email"><span class="blue-text email">
-								<?php echo isset($_SESSION['user'])? $_SESSION['user']['email'] : '' ?></span>
+								<?php echo $user->email() ?></span>
 							</a>
 						</div>
 					</li>
 					<li><a href="#">Teachers</a></li>
 					<li><a href="#">Students</a></li>
-<?php if (isset($_SESSION['user'])){
+<?php if ($user->loggedIn()){
 		echo '<li><a href="?logout" id="aSNLogout">Logout</a></li>';
 	} else {
 		echo '<li><a href="#modalLogin" class="modal-trigger">Login</a></li><li><a href="#modalRegister">Register</a></li>';

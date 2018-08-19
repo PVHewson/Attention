@@ -1,10 +1,25 @@
 <?php
+// Declare all the classes used to store sesseion details
+require 'common/sessionInfo.php';
+require 'classes/Article.php';
+
 // Receive a new submission
 // Validate submission
 // Add it to the database
 // Return result
+
+if (!$user->loggedIn()){
+	echo "Login required";
+	return;
+}
+if (!$user->canAuthor()){
+	echo "Unauthorised";
+	return;
+}
 $files = $_FILES;
 $post = $_POST;
+$article = new Article($post, $user);
+
 if (is_object($files)) {
 	$files[0]->saveAs($model->signature_filepath);
 }
@@ -45,7 +60,8 @@ if ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } else {
     if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
-	echo ('Thanks, ' . $_SESSION['user']['name'] . '. Your contribution has been accepted.  Success !!!');
+	    $article->save();
+	    echo ('Thanks, ' . $user->username() . '. Your contribution has been accepted.  Success !!!');
     } else {
         echo "Sorry, there was an error uploading your file.";
     }

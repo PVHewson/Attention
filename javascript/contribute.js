@@ -1,8 +1,10 @@
 $("document").ready(function(){
+	
 	$('#modalContribute').modal({
 		onOpenEnd: function(){ $('#contribSummary').focus();}
 	});
 	
+	// Use AJAX to submit new articles
 	$('#formContribute').submit(function(e){
 		e.preventDefault();
 

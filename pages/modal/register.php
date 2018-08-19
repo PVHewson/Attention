@@ -1,6 +1,6 @@
     <div class="modal" id="modalRegister">
       <div class="modal-content">
-        <form id="formRegistration" enctype="multipart/form-data">
+        <form action="index.php" method="post" id="formRegistration" enctype="multipart/form-data">
 	  <div class="row">
             <div class="input-field col s6">
               <i class="material-icons prefix indigo-text">perm_identity</i>    
@@ -16,7 +16,7 @@
             <i class="material-icons prefix indigo-text">email</i>    
             <input type="email" class="validate" id="regEmail" name="regEmail"/>
             <label for="regEmail">Email address</label>
-	    <span class="helper-text" data-error="Invalid email address" data-success="">t</span>
+	    <span class="helper-text" data-error="Invalid email address" data-success=""></span>
           </div>
           <div class="input-field">
             <i class="material-icons prefix indigo-text">assignment_ind</i>    
@@ -48,8 +48,7 @@
               </p>
             </div>  
             <div class="modal-footer">
-              <input type="submit" value="Go"/>
-              <a href="#!" class="modal-close waves-effect waves-green btn-flat">Register</a>
+              <input type="submit" class="btn" value="Register"/>
             </div>
         </form>
       </div>

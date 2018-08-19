@@ -1,20 +1,16 @@
 <?php
-// Initialize the session, allows me to track if user is logged in
-session_start();
-require 'classes/user.php';
+// Declare all the classes used to store sesseion details
+require 'common/sessionInfo.php';
 
 $imageDirectory = "";
 
 // If this comes with a login id then try to login the user
-if (isset($_POST['registerUsername'])) {
-	//Login attempt
-	$user = new User();
+if (isset($_POST['regUsername'])) {
 	$user->register($_POST);
 }
 
 if (isset($_POST['loginUsername'])) {
 	//Login attempt
-	$user = new User();
 	$user->login($_POST['loginUsername'], $_POST['loginPassword']);
 }
 
@@ -24,7 +20,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 	
 	// If a logout request has come in, clear the session information to wipe the login
 	if( isset($query['logout'])){
-		session_unset();
+		$user->logout();
 	}
 }
 
@@ -61,9 +57,10 @@ if (isset($_SERVER['QUERY_STRING'])) {
     </style>
   </head>
   <body>
-      <?php require 'pages/common/header.php'	?>  
-      <main class="container">
-        <?php include 'pages/common/contribute.php'	?>  
+    <?php require 'pages/common/header.php' ?>  
+    <main class="container">    
+      <?php require 'pages/common/articles.php'	?>  
+      <?php include 'pages/common/contribute.php' ?>  
     </main>
 
 <?php require 'pages/common/footer.php'; ?>  
