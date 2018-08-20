@@ -29,7 +29,7 @@
             <label for="regPassword">Password</label>
 	    <span class="helper-text" data-error="Poor password" data-success=""></span>
           </div>
-          <div class="file-field input-field">
+          <div class="file-field input-field hide">
           <div class="btn">
             <span>Photo</span>
             <input type="file" id="regPhoto" name="regPhoto">

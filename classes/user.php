@@ -67,7 +67,7 @@ class User {
 		catch (Exception $e)
 		{
 			$db->close();		
-			echo $e->getMessage();
+			throw $e;
 		}
 	}
 	
@@ -100,8 +100,8 @@ class User {
 		}
 		catch (Exception $e)
 		{
-			echo $e;
-			return false;
+			// Rethrow this error to be caught by whatever called this method
+			throw $e;
 		}
 	}
 	

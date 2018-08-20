@@ -79,8 +79,17 @@ class Article {
 		foreach ($db->readAll(Article::$_dbTable, 'TRUE', '', '') as $data) {
 			array_push($found, new Article($data, new User));
 		}
-		
+		$db->close();
 		return $found;
+	}
+
+	static function latest() {		
+		$db = New DbConnect();
+		
+		foreach ($db->query("Select * from " . Article::$_dbTable . " ORDER BY created DESC LIMIT 1") as $data) {
+			$db->close();
+			return new Article($data, new User);
+		}		
 	}
 	
 }

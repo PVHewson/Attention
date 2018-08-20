@@ -5,24 +5,28 @@ require 'common/sessionInfo.php';
 $imageDirectory = "";
 
 // If this comes with a login id then try to login the user
-if (isset($_POST['regUsername'])) {
-	$user->register($_POST);
-}
-
-if (isset($_POST['loginUsername'])) {
-	//Login attempt
-	$user->login($_POST['loginUsername'], $_POST['loginPassword']);
-}
-
-// Check the query string for additional action to take
-if (isset($_SERVER['QUERY_STRING'])) {
-	parse_str($_SERVER['QUERY_STRING'], $query);
-	
-	// If a logout request has come in, clear the session information to wipe the login
-	if( isset($query['logout'])){
-		$user->logout();
+try {
+	if (isset($_POST['regUsername'])) {	
+		$user->register($_POST);
 	}
-}
+
+	if (isset($_POST['loginUsername'])) {
+		//Login attempt
+		  $user->login($_POST['loginUsername'], $_POST['loginPassword']);
+	}
+
+	// Check the query string for additional action to take
+	if (isset($_SERVER['QUERY_STRING'])) {
+		parse_str($_SERVER['QUERY_STRING'], $query);
+
+		// If a logout request has come in, clear the session information to wipe the login
+		if( isset($query['logout'])){
+			$user->logout();
+		}
+	}
+} catch (Exception $e){
+	$loadMessage = $e->getMessage();
+}  
 
 ?>
 <!DOCTYPE html>
@@ -57,6 +61,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
     </style>
   </head>
   <body>
+    <?php if (isset($loadMessage)) require 'pages/common/loadMessages.php' ?>
     <?php require 'pages/common/header.php' ?>  
     <main class="container">    
       <?php require 'pages/common/articles.php'	?>  
@@ -68,7 +73,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 <?php require 'pages/modal/register.php'; ?>
   
     <!-- Materialize JS CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>        
     <script src="javascript/main.js"></script>
   </body>
 </html>

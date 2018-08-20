@@ -23,7 +23,7 @@ class DbConnect {
 	}
 	
 	function readAll($table, $query, $attribute, $value) {
-		$strFilter = $query? $query:  "$attribute = $value";
+		$strFilter = $query ? $query : "$attribute = $value";
 		
 		$sql = "SELECT * FROM $table WHERE $strFilter";
 		$result = $this->_conn->query($sql);
@@ -37,9 +37,8 @@ class DbConnect {
 		return $records;		
 	}
 
-	function fetch($query) {
-		$sql = "SELECT id_user, family_name, given_name, username FROM tbl_user";
-		$result = $this->_conn->query($sql);
+	function query($query) {
+		$result = $this->_conn->query($query);
 		
 		$records = array();
 		if ($result->num_rows > 0) {
@@ -70,7 +69,7 @@ class DbConnect {
 	  } 
 	  ////catch exception
 	  catch(Exception $e) {
-		echo 'Message: ' .$e->getMessage();
+		throw $e;
 	  }	
 	}
 }

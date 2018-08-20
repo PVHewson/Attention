@@ -1,5 +1,8 @@
     <div class="modal" id="modalContribute">
       <div class="modal-content">
+	      <div class="modal-header red">&nbsp;
+           <a class="btn-floating right"><i class="material-icons prefix white-text">close</i></a>            
+        </div>
         <form id="formContribute">
         <div class="input-field">
           <i class="material-icons prefix indigo-text">title</i>    

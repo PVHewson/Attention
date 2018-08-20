@@ -25,7 +25,7 @@ $post = $_POST;
 
 if (count($files) > 0) {
 //	$files[0]->saveAs($model->signature_filepath);
-	$target_dir = "uploads/";
+	$target_dir = "uploads/articles/";
 	$imageFileType = strtolower(pathinfo(basename($files['photo']['name']),PATHINFO_EXTENSION));
 	// Check if image file is a actual image or fake image
 	    $check = getimagesize($_FILES["photo"]["tmp_name"]);
